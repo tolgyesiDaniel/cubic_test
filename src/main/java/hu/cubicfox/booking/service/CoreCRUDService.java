@@ -22,6 +22,8 @@ public interface CoreCRUDService<T extends CoreEntity> {
 
     List<T> findByName(String name, String fieldName);
 
+    List<T> findByKey(Long id, String fieldName);
+
     List<T> findByNumber(Integer name, String fieldName);
 
 }

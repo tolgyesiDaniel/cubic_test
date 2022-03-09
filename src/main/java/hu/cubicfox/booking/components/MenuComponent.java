@@ -2,7 +2,6 @@ package hu.cubicfox.booking.components;
 
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import hu.cubicfox.booking.security.SecurityUtils;
 
 public class MenuComponent extends VerticalLayout {
 
@@ -12,12 +11,10 @@ public class MenuComponent extends VerticalLayout {
         main.setHref("/");
         add(main);
 
-        if(SecurityUtils.isAdmin()){
-            Anchor user = new Anchor();
-            user.setText("Users");
-            user.setHref("/user");
-            add(user);
-        }
+        Anchor hotels = new Anchor();
+        hotels.setText("Hotels");
+        hotels.setHref("/hotels");
+        add(hotels);
     }
 
 }

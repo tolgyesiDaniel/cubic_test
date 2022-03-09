@@ -6,13 +6,8 @@ import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import hu.cubicfox.booking.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class MainLayout extends AppLayout {
-
-    @Autowired
-    private UserService userService;
 
     public MainLayout(){
         createHeader();
@@ -23,7 +18,7 @@ public class MainLayout extends AppLayout {
         Span logo = new Span("Booking");
         logo.addClassName("logo");
 
-        Anchor logout = new Anchor("logout", "Log out");
+        Anchor logout = new Anchor("logout", "Logout");
 
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, logout);
         header.setPadding(true);

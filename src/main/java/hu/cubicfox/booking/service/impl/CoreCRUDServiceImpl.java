@@ -59,6 +59,11 @@ public abstract class CoreCRUDServiceImpl <T extends CoreEntity> implements Core
         }
     }
 
+    @Override
+    public List<T> findByKey(Long id, String fieldName){
+        return entityManager.createQuery("SELECT n FROM " + getManagedClass().getSimpleName() + " n WHERE " + fieldName + " = " + id, getManagedClass()).getResultList();
+    }
+
     protected abstract void updateCore(T persistedEntity, T entity);
 
     protected abstract Class<T> getManagedClass();
