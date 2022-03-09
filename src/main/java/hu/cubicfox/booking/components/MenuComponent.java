@@ -14,7 +14,7 @@ public class MenuComponent extends VerticalLayout {
 
         if(SecurityUtils.isAdmin()){
             Anchor user = new Anchor();
-            user.setText("Users page");
+            user.setText("Users");
             user.setHref("/user");
             add(user);
         }
