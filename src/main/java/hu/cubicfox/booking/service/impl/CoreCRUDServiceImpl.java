@@ -5,6 +5,7 @@ import hu.cubicfox.booking.service.CoreCRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
 import java.util.List;
 
 public abstract class CoreCRUDServiceImpl <T extends CoreEntity> implements CoreCRUDService<T> {
@@ -62,6 +63,13 @@ public abstract class CoreCRUDServiceImpl <T extends CoreEntity> implements Core
     @Override
     public List<T> findByKey(Long id, String fieldName){
         return entityManager.createQuery("SELECT n FROM " + getManagedClass().getSimpleName() + " n WHERE " + fieldName + " = " + id, getManagedClass()).getResultList();
+    }
+
+    @Override
+    public List<T> findByDateRange(Long id, LocalDate start, LocalDate end, String identificationField, String field){
+        return entityManager.createQuery(
+                "SELECT n FROM " + getManagedClass().getSimpleName() + " n " +
+                   "WHERE " + identificationField + " = " + id + " AND " + field + " >= '" + start + "' AND " + field + " <= " + "'" + end + "'", getManagedClass()).getResultList();
     }
 
     protected abstract void updateCore(T persistedEntity, T entity);
