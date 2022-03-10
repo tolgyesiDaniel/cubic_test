@@ -8,4 +8,6 @@ public interface HotelService extends CoreCRUDService<Hotel> {
 
     List<Hotel> locateByProximity(Long currentLat, Long currentLong);
 
+    String findByRoomId(Long hotelId);
+
 }

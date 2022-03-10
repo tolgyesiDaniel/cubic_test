@@ -27,12 +27,16 @@ public class HotelServiceImpl extends CoreCRUDServiceImpl<Hotel> implements Hote
 
     @Override
     public List<Hotel> locateByProximity(Long currentLat, Long currentLong){
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT hotel_name, hotel_geo_lat, hotel_geo_long, SQRT(POW(hotel_geo_lat - "+currentLat+",2) + POW(hotel_geo_long - "+currentLong+",2)) as distance");
-        sb.append("FROM hotels");
-        sb.append("ORDER BY distance DESC");
-
-        TypedQuery<Hotel> query = entityManager.createNamedQuery(sb.toString(), Hotel.class);
+        TypedQuery<Hotel> query = entityManager.createNamedQuery(Hotel.LOCATE_BY_PROXIMITY, Hotel.class);
+        query.setParameter("geoLat", currentLat);
+        query.setParameter("geoLong", currentLong);
         return query.getResultList();
+    }
+
+    @Override
+    public String findByRoomId(Long hotelId){
+        TypedQuery<String> query = entityManager.createNamedQuery(Hotel.FIND_BY_ROOM_ID, String.class);
+        query.setParameter("id", hotelId);
+        return query.getSingleResult();
     }
 }
