@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
 
 @Service
 public class RoomServiceImpl extends CoreCRUDServiceImpl<Room> implements RoomService {
@@ -18,6 +20,18 @@ public class RoomServiceImpl extends CoreCRUDServiceImpl<Room> implements RoomSe
         persistedEntity.setRoomNumber(entity.getRoomNumber());
         persistedEntity.setRoomPrice(entity.getRoomPrice());
         persistedEntity.setHotelRoom(entity.getHotelRoom());
+    }
+
+    @Override
+    public List<Room> findByUserId(Long id){
+        Query query = entityManager.createQuery(
+                "SELECT sum(u.roomPrice) as price, u.roomNumber " +
+                "FROM Room u " +
+                "LEFT JOIN UserRoom r ON r.roomId = u.id "+
+                "WHERE u.id = " + id +
+                "GROUP BY u.id"
+        );
+        return query.getResultList();
     }
 
     @Override

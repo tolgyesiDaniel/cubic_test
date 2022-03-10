@@ -4,9 +4,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import hu.cubicfox.booking.entity.Hotel;
 import hu.cubicfox.booking.entity.Room;
 import hu.cubicfox.booking.entity.User;
 import hu.cubicfox.booking.entity.UserRoom;
@@ -23,7 +23,7 @@ import java.util.List;
 
 @Route(value = "", layout = MainLayout.class)
 @PageTitle("Dashboard")
-public class MainView extends HorizontalLayout {
+public class MainView extends VerticalLayout {
 
     @Autowired
     private HotelService hotelService;
@@ -35,7 +35,7 @@ public class MainView extends HorizontalLayout {
     private UserRoomService userRoomService;
 
     private HorizontalLayout container = new HorizontalLayout();
-    private Grid<Room> grid = new Grid<>();
+    private Grid<List<Room>> grid = new Grid<>();
     private Button closeRoomBtn = new Button("Close");
     private Button reserveBtn = new Button("Resign");
 
@@ -48,6 +48,7 @@ public class MainView extends HorizontalLayout {
         List<UserRoom> userRoomList = userRoomService.findByKey(user.getId(), "user_id");
         List<Room> roomList = new ArrayList<>();
         List<String> hotelList = new ArrayList<>();
+        List<List<Room>> lister = new ArrayList<>();
 
         for (UserRoom userRoom : userRoomList){
             roomList.add(roomService.findById(userRoom.getRoomId()));
@@ -55,6 +56,16 @@ public class MainView extends HorizontalLayout {
         for (Room room : roomList){
             hotelList.add(hotelService.findByRoomId(room.getId()));
         }
+        for (Room r : roomList){
+            lister.add(roomService.findByUserId(r.getId()));
+        }
+
+        grid.setItems(lister);
+
+        grid.setWidth("100%");
+        container.setWidth("100%");
+        container.add(grid);
+        add(container);
     }
 
 }
