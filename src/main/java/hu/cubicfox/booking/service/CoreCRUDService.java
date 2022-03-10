@@ -27,6 +27,8 @@ public interface CoreCRUDService<T extends CoreEntity> {
 
     List<T> findByDateRange(Long id, LocalDate start, LocalDate end, String identificationField, String field);
 
+    List<T> listByPrice(String field);
+
     List<T> findByNumber(Integer name, String fieldName);
 
 }

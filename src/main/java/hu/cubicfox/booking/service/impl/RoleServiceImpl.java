@@ -4,6 +4,8 @@ import hu.cubicfox.booking.entity.Role;
 import hu.cubicfox.booking.service.RoleService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoleServiceImpl extends CoreCRUDServiceImpl<Role> implements RoleService {
 
@@ -16,4 +18,5 @@ public class RoleServiceImpl extends CoreCRUDServiceImpl<Role> implements RoleSe
     protected Class<Role> getManagedClass() {
         return Role.class;
     }
+
 }

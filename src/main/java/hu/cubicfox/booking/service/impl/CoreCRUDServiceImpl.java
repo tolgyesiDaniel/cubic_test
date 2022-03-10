@@ -72,6 +72,11 @@ public abstract class CoreCRUDServiceImpl <T extends CoreEntity> implements Core
                    "WHERE " + identificationField + " = " + id + " AND " + field + " >= '" + start + "' AND " + field + " <= " + "'" + end + "'", getManagedClass()).getResultList();
     }
 
+    @Override
+    public List<T> listByPrice(String field){
+        return entityManager.createQuery("SELECT n FROM " + getManagedClass().getSimpleName() + " n ORDER BY " + field + " DESC", getManagedClass()).getResultList();
+    }
+
     protected abstract void updateCore(T persistedEntity, T entity);
 
     protected abstract Class<T> getManagedClass();

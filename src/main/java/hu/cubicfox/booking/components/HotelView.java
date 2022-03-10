@@ -112,7 +112,9 @@ public class HotelView extends VerticalLayout {
         Grid<Room> roomListGrid = new Grid<>();
         roomListGrid.setItems(roomList);
         roomListGrid.addColumn(Room::getRoomNumber).setHeader("Room number");
-        roomListGrid.addColumn(Room::getRoomPrice).setHeader("Room price");
+        Grid.Column<Room> nPriceColumn = roomListGrid.addColumn(Room::getRoomPrice).setHeader("Room price");
+        GridSortOrder<Room> roomOrder = new GridSortOrder<>(nPriceColumn, SortDirection.DESCENDING);
+        roomListGrid.sort(Arrays.asList(roomOrder));
 
         roomListGrid.asSingleSelect().addValueChangeListener(event -> {
             Room room = event.getValue();
